@@ -3,45 +3,50 @@ using System.Collections;
 
 public class Player_Movement : MonoBehaviour {
 
-	public float accelX;
-	public float decelX;
-	public float maxVelX;
-	public float jumpForce;
+	public float drag;
+	public float swimSpeed;
+	public float maxSpeed;
 	
-	public string jumpButton;
+	public string upButton;
+	public string downButton;
 	public string rightButton;
 	public string leftButton;
 	
+	private Vector2 velocity;
+	
+	void Start() {
+		velocity = Vector2.zero;
+	}
 	
 	void Update () {
-		// Move horizontally
-		if(Input.GetKey(rightButton)) {
-			if(rigidbody2D.velocity.x < 0 && rigidbody2D.velocity.y == 0)
-				rigidbody2D.velocity = new Vector2(maxVelX, rigidbody2D.velocity.y);
-			else	
-				rigidbody2D.AddForce(new Vector2(accelX * Time.deltaTime, 0));
-		}
-		else if(Input.GetKey(leftButton)) {
-			if(rigidbody2D.velocity.x > 0 && rigidbody2D.velocity.y == 0)
-				rigidbody2D.velocity = new Vector2(-maxVelX, rigidbody2D.velocity.y);
-			else
-				rigidbody2D.AddForce(new Vector2(-1 * accelX * Time.deltaTime, 0));
-		}
+		// Set x velocity
+		if(Input.GetKeyDown(rightButton))
+			velocity.x += swimSpeed;
+		else if(Input.GetKeyDown(leftButton))
+			velocity.x -= swimSpeed;
+						
+		// Set y velocity
+		if(Input.GetKeyDown(upButton))
+			velocity.y += swimSpeed;
+		else if(Input.GetKeyDown(downButton))
+			velocity.y -= swimSpeed;
 			
-		// Decelerate in two stages
-		else if (rigidbody2D.velocity.y == 0) {
-			if(Mathf.Abs(rigidbody2D.velocity.x) > maxVelX / 2)
-				rigidbody2D.velocity = new Vector2(Mathf.Lerp(rigidbody2D.velocity.x, 0.0f, Time.deltaTime * decelX), rigidbody2D.velocity.y);
-			else
-				rigidbody2D.velocity = new Vector2(Mathf.Lerp(rigidbody2D.velocity.x, 0.0f, Time.deltaTime * decelX * 2), rigidbody2D.velocity.y);
-		}
+		velocity.x = Mathf.Clamp(velocity.x, -maxSpeed, maxSpeed);
+		velocity.y = Mathf.Clamp(velocity.y, -maxSpeed, maxSpeed);
 			
-		// Move vertically
-		if(Input.GetKeyDown(jumpButton) && rigidbody2D.velocity.y == 0)
-			rigidbody2D.AddForce(new Vector2(0, jumpForce));
-			
-		// Clamp velocity
-		float velX = Mathf.Clamp(rigidbody2D.velocity.x, -maxVelX, maxVelX);
-		rigidbody2D.velocity = new Vector2(velX, rigidbody2D.velocity.y);
+		// Move the player
+		rigidbody2D.velocity = velocity;
+		
+		// Decelerate x in two stages
+		if(Mathf.Abs(velocity.x) > swimSpeed / 2)
+			velocity.x = Mathf.Lerp(velocity.x, 0.0f, Time.deltaTime * drag);
+		else
+			velocity.x = Mathf.Lerp(velocity.x, 0.0f, Time.deltaTime * drag * 2);
+		
+		// Decelerate y in two stages
+		if(Mathf.Abs(velocity.y) > swimSpeed / 2)
+			velocity.y = Mathf.Lerp(velocity.y, 0.0f, Time.deltaTime * drag);
+		else
+			velocity.y = Mathf.Lerp(velocity.y, 0.0f, Time.deltaTime * drag * 2);
 	}
 }
