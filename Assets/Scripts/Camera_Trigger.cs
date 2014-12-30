@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Camera_Trigger : MonoBehaviour {
 
-	public GameObject camera;
+	public GameObject mainCamera;
 
 	void OnTriggerEnter2D(Collider2D other) {
-		camera.SendMessage("PanUp");
+		mainCamera.SendMessage("PanUp");
 	}
 }
