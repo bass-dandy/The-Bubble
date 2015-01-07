@@ -7,7 +7,7 @@ public class SpikeWall : MonoBehaviour {
 	public int size;
 	public Color color;
 
-	void Start () {
+	void Awake () {
 		Vector3 step = Vector3.zero;
 		step.x  = spikePrefab.GetComponent<SpriteRenderer>().bounds.max.x;
 		step.x -= spikePrefab.GetComponent<SpriteRenderer>().bounds.min.x;

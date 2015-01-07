@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 43b534f947fa8d54b99fd3114e6fba42
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - wallPrefabNormal: {fileID: 132322, guid: ac4f862eab5ed6e4ea1c69fe11235cfa, type: 2}
+  - wallPrefabBubble: {fileID: 171562, guid: cdf2739f1b685f746857721d669044e9, type: 2}
+  - wallPrefabPlayer: {fileID: 111470, guid: c024c3f37506ca945a747475ed2675be, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
