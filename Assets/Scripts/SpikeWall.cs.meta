@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: 0676980b768c54947a4c3303d22cbfe6
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spikePrefabNormal: {fileID: 165178, guid: 372a4294be0e4a04ebd4b47c6e53f146, type: 2}
+  - spikePrefabBubble: {fileID: 175430, guid: 026cb6c00dfe7c14c8baf7b3cbb7fbfd, type: 2}
+  - spikePrefabPlayer: {fileID: 197270, guid: 6d0b6b0ff008f254f843b7e8bae75cbe, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

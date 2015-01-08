@@ -40,7 +40,7 @@ public class Wall : MonoBehaviour {
 							   transform.position + new Vector3(0.0f, 0.0f, -8.0f), 
 							   transform.rotation) as GameObject;
 							   
-			wall.transform.localScale = transform.localScale * 2.55f;
+			wall.transform.localScale = transform.localScale;
 		}
 		if(p2) {
 			GameObject wall;
@@ -48,7 +48,7 @@ public class Wall : MonoBehaviour {
 							   transform.position + new Vector3(0.0f, 0.0f, -10.0f), 
 							   transform.rotation) as GameObject;
 							   
-			wall.transform.localScale = transform.localScale * 2.55f;
+			wall.transform.localScale = transform.localScale;
 		}
 		Destroy (GetComponent<Wall>());
 	}
@@ -61,6 +61,6 @@ public class Wall : MonoBehaviour {
 		else
 			Gizmos.color = normalColor;
 			
-		Gizmos.DrawCube(transform.position, transform.localScale * 2.55f);
+		Gizmos.DrawCube(transform.position, transform.localScale);
 	}
 }
