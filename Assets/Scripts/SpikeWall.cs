@@ -29,6 +29,8 @@ public class SpikeWall : MonoBehaviour {
 				                               transform.rotation) as GameObject;
 				
 				spike.GetComponent<SpriteRenderer>().color = normalColor;
+				
+				spike.transform.position -= new Vector3(0.0f, step.x / 2, 0.0f);
 				spike.transform.position = RotatePointAroundPivot(spike.transform.position, 
 				                                                  transform.position, 
 				                                                  transform.rotation.eulerAngles);
@@ -41,6 +43,8 @@ public class SpikeWall : MonoBehaviour {
 				                               transform.rotation) as GameObject;
 				
 				spike.GetComponent<SpriteRenderer>().color = bubbleColor;
+				
+				spike.transform.position -= new Vector3(0.0f, step.x / 2, 0.0f);
 				spike.transform.position = RotatePointAroundPivot(spike.transform.position, 
 				                                                  transform.position, 
 				                                                  transform.rotation.eulerAngles);
@@ -52,6 +56,7 @@ public class SpikeWall : MonoBehaviour {
 				                               transform.position + step * i + step / 2, 
 				                               transform.rotation) as GameObject;
 				
+				spike.transform.position -= new Vector3(0.0f, step.x / 2, 0.0f);
 				spike.transform.position = RotatePointAroundPivot(spike.transform.position, 
 				                                                  transform.position, 
 				                                                  transform.rotation.eulerAngles);
@@ -63,6 +68,7 @@ public class SpikeWall : MonoBehaviour {
 				                               transform.position + step * i + step / 2, 
 				                               transform.rotation) as GameObject;
 				
+				spike.transform.position -= new Vector3(0.0f, step.x / 2, 0.0f);
 				spike.transform.position = RotatePointAroundPivot(spike.transform.position, 
 				                                                  transform.position, 
 				                                                  transform.rotation.eulerAngles);
