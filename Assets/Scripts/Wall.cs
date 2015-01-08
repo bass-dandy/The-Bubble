@@ -61,6 +61,11 @@ public class Wall : MonoBehaviour {
 		else
 			Gizmos.color = normalColor;
 			
-		Gizmos.DrawCube(transform.position, transform.localScale);
+		// Match rotation
+		Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
+		Gizmos.matrix = rotationMatrix;
+			
+		Gizmos.DrawCube(Vector3.zero, new Vector3(1.0f, 1.0f, 1.0f));
+		//Gizmos.DrawCube(transform.position, transform.localScale);
 	}
 }
