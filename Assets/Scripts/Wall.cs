@@ -23,7 +23,8 @@ public class Wall : MonoBehaviour {
 							   transform.rotation) as GameObject;
 							   
 			wall.GetComponent<SpriteRenderer>().color = normalColor;
-			wall.transform.localScale = transform.localScale;
+			wall.transform.localScale = transform.lossyScale;
+			wall.transform.parent = transform;
 		}
 		if(bubble) {
 			GameObject wall;
@@ -32,7 +33,8 @@ public class Wall : MonoBehaviour {
 							   transform.rotation) as GameObject;
 							   
 			wall.GetComponent<SpriteRenderer>().color = bubbleColor;
-			wall.transform.localScale = transform.localScale;
+			wall.transform.localScale = transform.lossyScale;
+			wall.transform.parent = transform;
 		}
 		if(p1) {
 			GameObject wall;
@@ -40,7 +42,8 @@ public class Wall : MonoBehaviour {
 							   transform.position + new Vector3(0.0f, 0.0f, -8.0f), 
 							   transform.rotation) as GameObject;
 							   
-			wall.transform.localScale = transform.localScale;
+			wall.transform.localScale = transform.lossyScale;
+			wall.transform.parent = transform;
 		}
 		if(p2) {
 			GameObject wall;
@@ -48,7 +51,8 @@ public class Wall : MonoBehaviour {
 							   transform.position + new Vector3(0.0f, 0.0f, -10.0f), 
 							   transform.rotation) as GameObject;
 							   
-			wall.transform.localScale = transform.localScale;
+			wall.transform.localScale = transform.lossyScale;
+			wall.transform.parent = transform;
 		}
 		Destroy (GetComponent<Wall>());
 	}
