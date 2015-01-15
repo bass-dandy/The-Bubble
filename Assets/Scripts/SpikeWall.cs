@@ -36,6 +36,7 @@ public class SpikeWall : MonoBehaviour {
 				                                                  transform.rotation.eulerAngles);
 				
 				spike.transform.position += new Vector3(0.0f, 0.0f, 15.0f);
+				spike.transform.parent = transform;
 			}
 			if(bubble) {
 				GameObject spike = Instantiate(spikePrefabBubble, 
@@ -50,6 +51,7 @@ public class SpikeWall : MonoBehaviour {
 				                                                  transform.rotation.eulerAngles);
 				                                                  
 				spike.transform.position += new Vector3(0.0f, 0.0f, -6.0f);
+				spike.transform.parent = transform;
 			}
 			if(p1) {
 				GameObject spike = Instantiate(spikePrefabPlayer, 
@@ -62,6 +64,7 @@ public class SpikeWall : MonoBehaviour {
 				                                                  transform.rotation.eulerAngles);
 				                                                  
 				spike.transform.position += new Vector3(0.0f, 0.0f, -8.0f);
+				spike.transform.parent = transform;
 			}
 			if(p2) {
 				GameObject spike = Instantiate(spikePrefabPlayer, 
@@ -74,6 +77,7 @@ public class SpikeWall : MonoBehaviour {
 				                                                  transform.rotation.eulerAngles);
 				                                                  
 				spike.transform.position += new Vector3(0.0f, 0.0f, -10.0f);
+				spike.transform.parent = transform;
 			}
 		}
 		Destroy (GetComponent<SpikeWall>());
