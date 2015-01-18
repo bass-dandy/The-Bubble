@@ -64,6 +64,9 @@ public class Player_Movement : MonoBehaviour {
 			velocity.y = Mathf.Lerp(velocity.y, 0.0f, Time.deltaTime * drag * 2);
 	}
 	
+	public void Push(Vector2 force) {
+		velocity += force;
+	}
 	
 	public void Spawn() {
 		transform.position = spawn.position;
