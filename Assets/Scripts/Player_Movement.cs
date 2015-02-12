@@ -18,12 +18,15 @@ public class Player_Movement : MonoBehaviour {
 	public string rightButton;
 	public string leftButton;
 	
+	public bool isSpawned;
+	
 	private Vector2 velocity;
 	private Vector3 deltaScale;
 	private bool canMove;
 	
 	void Start() {
 		canMove = false;
+		isSpawned = false;
 		velocity = Vector2.zero;
 		deltaScale = new Vector3(deltaSize, deltaSize, 0.0f);
 		
@@ -73,6 +76,7 @@ public class Player_Movement : MonoBehaviour {
 	
 	public void Spawn() {
 		transform.position = spawn.position;
+		isSpawned = true;
 		StartCoroutine(Grow ());
 	}
 	
