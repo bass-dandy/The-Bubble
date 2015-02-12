@@ -7,6 +7,7 @@ public class Player_Movement : MonoBehaviour {
 	public float deltaSize;
 
 	public Transform spawn;
+	public bool spawnAtStart;
 
 	public float drag;
 	public float swimSpeed;
@@ -25,7 +26,9 @@ public class Player_Movement : MonoBehaviour {
 		canMove = false;
 		velocity = Vector2.zero;
 		deltaScale = new Vector3(deltaSize, deltaSize, 0.0f);
-		Spawn ();
+		
+		if(spawnAtStart)
+			Spawn ();
 	}
 	
 	void Update () {

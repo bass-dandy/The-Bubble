@@ -6,19 +6,31 @@ public class TimedDestroy : MonoBehaviour {
 
 	public float duration;
 	public float fadeDuration;
+	public bool isEndGame;
+	public bool isStartGame;
+	
 	private CanvasGroup cg;
+	private Text text;
 
 	void Start() {
 		cg = GetComponent<CanvasGroup>();
-		StartCoroutine(FadeIn());
+		text = GetComponentInChildren<Text>();
+		
+		if(isStartGame)
+			StartCoroutine(FadeOut());
+		else
+			StartCoroutine(FadeIn());
 	}
 
 	IEnumerator FadeIn() {
 		while(cg.alpha < 1.0f) {
 			cg.alpha += fadeDuration * Time.deltaTime;
+			
+			if(cg.alpha > 1.0f)
+				cg.alpha = 1.0f;
+				
 			yield return null;
 		}
-		cg.alpha = 1.0f;
 		StartCoroutine(Countdown());
 	}
 
@@ -27,7 +39,10 @@ public class TimedDestroy : MonoBehaviour {
 			duration -= Time.deltaTime;
 			yield return null;
 		}
-		StartCoroutine(FadeOut());
+		if(isEndGame)
+			StartCoroutine(GameOver());
+		else
+			StartCoroutine(FadeOut());
 	}
 	
 	IEnumerator FadeOut() {
@@ -36,5 +51,15 @@ public class TimedDestroy : MonoBehaviour {
 			yield return null;
 		}
 		Destroy(gameObject);
+	}
+	
+	IEnumerator GameOver() {
+		while(text.color.a > 0) {
+			Color next = text.color;
+			next.a -= fadeDuration * Time.deltaTime;
+			text.color = next;
+			yield return null;
+		}
+		Application.LoadLevel("Menu");
 	}
 }
