@@ -37,16 +37,16 @@ public class Player_Movement : MonoBehaviour {
 	void Update () {
 		if(canMove) {
 			// Set x velocity
-			if(Input.GetKeyDown(rightButton))
-				velocity.x += swimSpeed;
-			else if(Input.GetKeyDown(leftButton))
-				velocity.x -= swimSpeed;
+			if(Input.GetKey(rightButton))
+				velocity.x += swimSpeed * Time.deltaTime * 10;
+			else if(Input.GetKey(leftButton))
+				velocity.x -= swimSpeed * Time.deltaTime * 10;
 						
 			// Set y velocity
-			if(Input.GetKeyDown(upButton))
-				velocity.y += swimSpeed;
-			else if(Input.GetKeyDown(downButton))
-				velocity.y -= swimSpeed;
+			if(Input.GetKey(upButton))
+				velocity.y += swimSpeed * Time.deltaTime * 10;
+			else if(Input.GetKey(downButton))
+				velocity.y -= swimSpeed * Time.deltaTime * 10;
 			
 			velocity.x = Mathf.Clamp(velocity.x, -maxSpeed, maxSpeed);
 			velocity.y = Mathf.Clamp(velocity.y, -maxSpeed, maxSpeed);
@@ -81,8 +81,10 @@ public class Player_Movement : MonoBehaviour {
 	}
 	
 	public void Kill() {
-		canMove = false;
-		StartCoroutine(Shrink ());
+		if(canMove) {
+			canMove = false;
+			StartCoroutine(Shrink ());
+		}
 	}
 	
 	IEnumerator Grow() {
