@@ -3,10 +3,11 @@ using System.Collections;
 
 public class MusicHandler : MonoBehaviour {
 
-	public float singleNoteFadeY;
+	public float celloStartFade;
+	public float celloEndFade;
 	
-	public float heavyDootStartFadeY;
-	public float heavyDootFadeY;
+	public float chordStartFade;
+	public float chordEndFade;
 	
 	public float piano1StartFadeY;
 	public float piano1FadeY;
@@ -16,27 +17,23 @@ public class MusicHandler : MonoBehaviour {
 	
 	public Transform camera;
 
-	public AudioSource doot;
-	public AudioSource eDrums;
-	public AudioSource heavyDoot;
+	public AudioSource arpCelloBeat;
+	public AudioSource cello;
 	public AudioSource heavyShit;
-	public AudioSource mellowArp;
-	public AudioSource ocean;
 	public AudioSource piano1;
 	public AudioSource piano2;
 	public AudioSource prechorus;
-	public AudioSource realDrums;
-	public AudioSource singleNote;
-	public AudioSource wavesBegin;
-	public AudioSource wavesEnd;
-	public AudioSource wubs;
+	public AudioSource prechorusChord;
+	public AudioSource transition;
+	public AudioSource wubDoot;
+	public AudioSource wubDootDrums;
+	public AudioSource wubDootDrumsArp;
 	
 	public int state = 0;
 
 	void Start () {
 		Play();
-		ocean.volume = 0.0f;
-		wubs.volume = 0.0f;
+		wubDoot.volume = 0.0f;
 		StartCoroutine(Begin());
 		InvokeRepeating("Play", 9.6f, 9.6f);
 	}
@@ -47,13 +44,13 @@ public class MusicHandler : MonoBehaviour {
 		
 		// Handle position-based fade-ins
 		switch(state) {
-			case 0: 
-				doot.volume = camera.position.y / singleNoteFadeY;
-				eDrums.volume = camera.position.y / singleNoteFadeY * 3;
-				singleNote.volume = camera.position.y / (singleNoteFadeY * 3);
+			case 2: 
+				cello.volume = (camera.position.y - celloStartFade) / (celloEndFade - celloStartFade);
 				break;
 			case 4:
-				heavyDoot.volume = (camera.position.y - heavyDootStartFadeY) / (heavyDootFadeY - heavyDootStartFadeY);
+				prechorusChord.volume = (camera.position.y - chordStartFade) / (chordEndFade - chordStartFade);
+				break;
+			case 6:
 				piano1.volume = (camera.position.y - piano1StartFadeY) / (piano1FadeY - piano1StartFadeY);
 				piano2.volume = (camera.position.y - piano2StartFadeY) / (piano2FadeY - piano2StartFadeY);
 				break;
@@ -63,38 +60,28 @@ public class MusicHandler : MonoBehaviour {
 	void Play() {
 		switch(state) {
 			case 0:
-				ocean.Play();
-				wubs.Play();
-				doot.Play();
-				eDrums.Play();
-				singleNote.Play();
+				wubDoot.Play();
 				break;
 			case 1:
-				ocean.Play();
-				doot.Play();
-				wubs.Play();
-				eDrums.Play();
-				singleNote.Play();
-				mellowArp.Play();
+				wubDootDrums.Play();
 				break;
 			case 2:
-				ocean.Play();
-				wubs.Play();
-				realDrums.Play();
-				prechorus.Play();
+				wubDootDrumsArp.Play();
+				cello.Play();
 				break;
 			case 3:
-				ocean.Play();
-				wubs.Play();
-				realDrums.Play();
-				prechorus.Play();
-				wavesBegin.Play();
-				Advance();
+				arpCelloBeat.Play();
 				break;
 			case 4:
+				prechorus.Play();
+				prechorusChord.Play();
+				break;
 			case 5:
+				transition.Play();
+				Advance();
+				break;
+			default:
 				heavyShit.Play();
-				heavyDoot.Play();
 				piano1.Play();
 				piano2.Play();
 				break;
@@ -103,17 +90,13 @@ public class MusicHandler : MonoBehaviour {
 	
 	public void Advance() {
 		state++;
-		if(state > 4)
+		if(state > 6)
 			StartCoroutine(End ());
 	}
 	
 	IEnumerator Begin() {
-		while(ocean.volume < 1.0f) {
-			ocean.volume += Time.deltaTime / 2;
-			yield return null;
-		}
-		while(wubs.volume < 1.0f) {
-			wubs.volume += Time.deltaTime / 8;
+		while(wubDoot.volume < 1.0f) {
+			wubDoot.volume += Time.deltaTime / 2;
 			yield return null;
 		}
 	}
@@ -121,7 +104,6 @@ public class MusicHandler : MonoBehaviour {
 	IEnumerator End() {
 		while(heavyShit.volume > 0) {
 			heavyShit.volume -= Time.deltaTime / 4;
-			heavyDoot.volume -= Time.deltaTime / 4;
 			piano1.volume -= Time.deltaTime / 4;
 			yield return null;
 		}
