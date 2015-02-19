@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player_Movement : MonoBehaviour {
 
@@ -13,25 +14,32 @@ public class Player_Movement : MonoBehaviour {
 	public float swimSpeed;
 	public float maxSpeed;
 	
+	// Control inputs
 	public string upButton;
 	public string downButton;
 	public string rightButton;
 	public string leftButton;
 	
+	// Used by camera for panning
 	public bool isSpawned;
 	
 	private Vector2 velocity;
 	private Vector3 deltaScale;
 	private bool canMove;
 	
+	// for hiding and showing tooltip
+	private CanvasGroup controlHint;
+	private bool hinted = false;
+	
 	void Start() {
 		canMove = false;
 		isSpawned = false;
 		velocity = Vector2.zero;
 		deltaScale = new Vector3(deltaSize, deltaSize, 0.0f);
+		controlHint = GetComponentInChildren<CanvasGroup>();
 		
 		if(spawnAtStart)
-			Spawn ();
+			Invoke("Spawn", 6.0f);
 	}
 	
 	void Update () {
@@ -93,6 +101,11 @@ public class Player_Movement : MonoBehaviour {
 			yield return null;
 		}
 		transform.localScale = new Vector3(size, size, 1.0f);
+		
+		if(!hinted) {
+			hinted = true;
+			controlHint.SendMessage("Show");
+		}
 		canMove = true;
 	}
 	
