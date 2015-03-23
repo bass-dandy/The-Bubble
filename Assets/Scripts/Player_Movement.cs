@@ -63,7 +63,7 @@ public class Player_Movement : MonoBehaviour {
 			velocity = Vector2.zero;
 		}
 		// Move the player
-		rigidbody2D.velocity = velocity;
+		GetComponent<Rigidbody2D>().velocity = velocity;
 		
 		// Decelerate x in two stages
 		if(Mathf.Abs(velocity.x) > swimSpeed / 2)
